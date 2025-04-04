@@ -1,19 +1,11 @@
 import { Suspense, lazy } from "react";
-
-import Card from "@/components/card";
-import { Iconify, SvgIcon } from "@/components/icon";
+import { Iconify } from "@/components/icon";
 import { CircleLoading } from "@/components/loading";
 
 import type { AppRouteObject } from "#/router";
-import { Tag } from "antd";
 
 
-const ExternalLink = lazy(
-	() => import("@/pages/sys/others/iframe/external-link"),
-);
-const Iframe = lazy(() => import("@/pages/sys/others/iframe"));
-const Calendar = lazy(() => import("@/pages/sys/others/calendar"));
-const Kanban = lazy(() => import("@/pages/sys/others/kanban"));
+const CreateRAOfficerPage = lazy(() =>  import("@/pages/CreateRAOfficerPage"));
 const AddForm = lazy(() => import("@/pages/add-forms"));
 const  OrganizationPage =lazy(() => import("@/pages/organizations"));
 const  RequestPages =lazy(() => import("@/pages/request"));
@@ -31,7 +23,7 @@ const others: AppRouteObject[] = [
 		),
 		meta: {
 			label: "Organizations",
-			icon: <Iconify icon="octicon:organization-16" size={24} />,
+			icon: <Iconify icon="octicon:organization-16" size={20} />,
 			key: "/organization",
 		},
 	 },
@@ -44,7 +36,7 @@ const others: AppRouteObject[] = [
 		),
 		meta: {
 			label: "Forms",
-			icon: <Iconify icon="solar:calendar-bold-duotone" size={24} />,
+			icon: <Iconify icon="solar:calendar-bold-duotone" size={20} />,
 			key: "/addforms",
 		},
 	 },
@@ -58,8 +50,21 @@ const others: AppRouteObject[] = [
 		),
 		meta: {
 			label: "Requests",
-			icon: <Iconify icon="charm:git-request" size={24} />,
+			icon: <Iconify icon="charm:git-request" size={20} />,
 			key: "/requests",
+		},
+	 },
+	 {
+		path: "ra-officers",
+		element: (
+			<Wrapper>
+				<CreateRAOfficerPage/>
+			</Wrapper>
+		),
+		meta: {
+			label: "RA-Officers",
+			icon: <Iconify icon="grommet-icons:user-admin" size={20} />,
+			key: "/ra-officers",
 		},
 	 },
 	 {
@@ -71,7 +76,7 @@ const others: AppRouteObject[] = [
 		),
 		meta: {
 			label: "Users",
-			icon: <Iconify icon="mdi:users" size={24} />,
+			icon: <Iconify icon="mdi:users" size={20} />,
 			key: "/users",
 		},
 	 },

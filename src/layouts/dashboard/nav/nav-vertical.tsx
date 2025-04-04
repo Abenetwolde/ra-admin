@@ -1,4 +1,4 @@
-import { Layout, Menu, type MenuProps } from "antd";
+import { Divider, Layout, Menu, type MenuProps } from "antd";
 import { useEffect, useMemo, useState } from "react";
 import { useMatches, useNavigate } from "react-router";
 
@@ -90,8 +90,13 @@ export default function NavVertical(props: Props) {
 			className="!fixed left-0 top-0 h-screen border-r border-dashed border-border"
 		>
 			<div className="flex h-full flex-col">
+				<div className="my-2 ">
 				<NavLogo collapsed={collapsed} onToggle={handleToggleCollapsed} />
 
+				</div>
+				
+<Divider className="mx-4" />
+			
 				<Scrollbar>
 					<Menu
 						mode="inline"

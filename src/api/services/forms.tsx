@@ -1,8 +1,23 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { RootState } from "../store";
 
 export const formsApi = createApi({
   reducerPath: "formsApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "https://tlwkc1rr-3000.uks1.devtunnels.ms/api" }), // Change to your actual API URL
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://tlwkc1rr-3000.uks1.devtunnels.ms/api", // Your API URL
+    prepareHeaders: (headers, { getState }) => {
+      // Access the Redux state
+      const state = getState() as RootState;
+      const token = state.user.token; // Assuming your user state is under 'user' key
+
+      // If token exists, add it to the Authorization header
+      if (token) {
+        headers.set("Authorization", `Bearer ${token}`);
+      }
+
+      return headers;
+    },
+  }),
   tagTypes: ['Form'],
   endpoints: (builder) => ({
     getForms: builder.query({

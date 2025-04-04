@@ -5,6 +5,8 @@ import { requestsApi } from "./services/requestsApi";
 import { usersApi } from "./services/userApi";
 import { authApi } from "./services/authApi";
 import userreducer from "./state/userStore";
+import { raofficerApi } from "./services/raOfficerApi";
+
 export const store :any= configureStore({
   reducer: {
         user: userreducer,
@@ -13,9 +15,10 @@ export const store :any= configureStore({
     [requestsApi.reducerPath]: requestsApi.reducer,
     [usersApi.reducerPath]: usersApi.reducer,
    [authApi.reducerPath]: authApi.reducer,
+   [raofficerApi.reducerPath]: raofficerApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(formsApi.middleware,organizationsApi.middleware,requestsApi.middleware,requestsApi.middleware,usersApi.middleware, authApi.middleware),
+    getDefaultMiddleware().concat(formsApi.middleware,organizationsApi.middleware,requestsApi.middleware,requestsApi.middleware,usersApi.middleware, authApi.middleware,raofficerApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

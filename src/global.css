@@ -1,6 +1,6 @@
 /* font */
-/* @import "@fontsource-variable/open-sans";
-@import "@fontsource-variable/inter"; */
+@import "@fontsource-variable/open-sans";
+@import "@fontsource-variable/inter";
 
 /* editor */
 @import "react-quill/dist/quill.snow.css";
@@ -26,13 +26,7 @@ html.dark {
   --c-scrollbar: #555;
   --c-scrollbar-hover: #888;
 }
-@font-face {
-  font-family: 'vvsans-serif'; 
-  src: url('./assets/font/OpenSans-Regular.ttf') format('truetype'); /* Path to your .otf file */
 
-  font-weight: normal;
-  font-style: normal;
-}
 .open-sans-uniquifier {
   font-family: "Open Sans", serif;
   font-optical-sizing: auto;

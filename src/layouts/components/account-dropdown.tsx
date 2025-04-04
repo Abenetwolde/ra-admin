@@ -2,13 +2,15 @@ import { Divider, type MenuProps } from "antd";
 import Dropdown, { type DropdownProps } from "antd/es/dropdown/dropdown";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 
 import { IconButton } from "@/components/icon";
 import { useLoginStateContext } from "@/pages/sys/login/providers/LoginStateProvider";
 import { useRouter } from "@/router/hooks";
 import { useUserActions, useUserInfo } from "@/store/userStore";
 import { useTheme } from "@/theme/hooks";
+import { clearUserToken } from "@/api/state/userStore";
+import { useDispatch } from "react-redux";
 
 const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 
@@ -18,13 +20,16 @@ const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 export default function AccountDropdown() {
 	const { replace } = useRouter();
 	const { username, email, avatar } = useUserInfo();
-	const { clearUserInfoAndToken } = useUserActions();
-	const { backToLogin } = useLoginStateContext();
+
 	const { t } = useTranslation();
+	const navigator = useNavigate();
+	const dispatch=useDispatch();
 	const logout = () => {
+
 		try {
-			clearUserInfoAndToken();
-			backToLogin();
+			dispatch(clearUserToken()); // Dispatch the clearUserToken action to clear Redux state and localStorage
+			// setAnchorEl(null); // Close the menu
+		navigator("/login"); 
 		} catch (error) {
 			console.log(error);
 		} finally {
@@ -90,10 +95,23 @@ export default function AccountDropdown() {
 	];
 
 	return (
-		<Dropdown menu={{ items }} trigger={["click"]} dropdownRender={dropdownRender}>
-			<IconButton className="h-10 w-10 transform-none px-0 hover:scale-105">
-				<img className="h-8 w-8 rounded-full" src={avatar} alt="" />
-			</IconButton>
-		</Dropdown>
+<Dropdown menu={{ items }} trigger={["click"]} dropdownRender={dropdownRender}>
+  <IconButton className="h-10 w-10 transform-none px-0 hover:scale-105 relative">
+    {/* Parent container with relative positioning */}
+    <div className="relative h-8 w-8 bg-primary border-1 border-spacing-1 border-info-dark rounded-full">
+      {/* Image */}
+      <img
+        className="h-8 w-8 rounded-full"
+        src={avatar}
+        alt=""
+      />
+      {/* Centered Text */}
+      <span className="absolute inset-0 flex items-center justify-center text-white font-bold">
+        A
+      </span>
+    </div>
+  </IconButton>
+</Dropdown>
+
 	);
 }

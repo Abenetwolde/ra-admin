@@ -16,15 +16,17 @@ import QrCodeFrom from "./QrCodeForm";
 import RegisterForm from "./RegisterForm";
 import ResetForm from "./ResetForm";
 import { LoginStateProvider } from "./providers/LoginStateProvider";
+import { useSelector } from "react-redux";
 
 const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 
 function Login() {
 	const { t } = useTranslation();
-	const token = useUserToken();
+	// const token = useUserToken();
+	const userState=useSelector((state:any)=>state.user);
 
 	// 判断用户是否有权限
-	if (token.accessToken) {
+	if (userState?.token) {
 		// 如果有授权，则跳转到首页
 		return <Navigate to={HOMEPAGE} replace />;
 	}

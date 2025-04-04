@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Card, Modal } from "antd";
+import { Button, Card } from "antd";
 import { useCreateFormMutation, useDeleteFormMutation, useGetFormsQuery } from "@/api/services/forms";
 import { toast } from "sonner";
 import { useGetOrganizationsQuery } from "@/api/services/organization";
@@ -48,7 +48,6 @@ export default function PermissionPage() {
       <FormModal
         modalVisible={modalVisible}
         formValue={formValue}
-
         setModalVisible={setModalVisible}
         createForm={createForm}
         organizations={organizations}

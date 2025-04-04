@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { RootState } from '../store';
 
 interface Organization {
   org_id: number;
@@ -10,7 +11,21 @@ interface Organization {
 
 export const organizationsApi = createApi({
   reducerPath: 'organizationsApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://tlwkc1rr-3000.uks1.devtunnels.ms/api' }),
+   baseQuery: fetchBaseQuery({
+     baseUrl: "https://tlwkc1rr-3000.uks1.devtunnels.ms/api", // Your API URL
+     prepareHeaders: (headers, { getState }) => {
+       // Access the Redux state
+       const state = getState() as RootState;
+       const token = state.user.token; // Assuming your user state is under 'user' key
+ 
+       // If token exists, add it to the Authorization header
+       if (token) {
+         headers.set("Authorization", `Bearer ${token}`);
+       }
+ 
+       return headers;
+     },
+   }),
   tagTypes: ['Organization'],
   endpoints: (builder) => ({
     getOrganizations: builder.query<Organization[], void>({

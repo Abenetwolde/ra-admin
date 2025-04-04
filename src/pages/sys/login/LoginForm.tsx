@@ -9,9 +9,11 @@ import { useLoginStateContext, LoginStateEnum } from "./providers/LoginStateProv
 import { useLoginMutation } from "@/api/services/authApi";
 import { setUserToken } from "@/api/state/userStore";
 import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
 
 function LoginForm() {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const { loginState, setLoginState } = useLoginStateContext();
@@ -19,21 +21,19 @@ function LoginForm() {
   const navigate = useNavigate(); // <
 
   if (loginState !== LoginStateEnum.LOGIN) return null;
-
-  const handleFinish = async ({ email, password }: { username: string; password: string }) => {
+  const handleFinish = async ({ email, password }: { email: string; password: string }) => {  // Changed username to email to match form
     setLoading(true);
     try {
       const response = await signIn({ email, password }).unwrap();
       console.log("Login Success:", response);
-
-      // Store token in state or local storage
-      setUserToken({
-        accessToken: response.token,
+  
+      // This will now automatically save to localStorage via the reducer
+      dispatch(setUserToken({ // Add dispatch here
+        token: response.token,
         refreshToken: response.refreshToken,
         username: response.username,
-      });
-      navigate("/dashboard", { replace: true }); // Redi
-      // Redirect or show success message
+      }));
+      // navigate("/dashboard", { replace: true });
     } catch (err) {
       console.error("Login Failed:", err);
     } finally {

@@ -5,19 +5,20 @@ import { useUserToken } from "@/store/userStore";
 
 import PageError from "@/pages/sys/error/PageError";
 import { useRouter } from "../hooks";
+import { useSelector } from "react-redux";
 
 type Props = {
 	children: React.ReactNode;
 };
 export default function ProtectedRoute({ children }: Props) {
 	const router = useRouter();
-	const { accessToken } = useUserToken();
+const userState=useSelector((state:any)=>state.user);
 
 	const check = useCallback(() => {
-		if (!accessToken) {
+		if (!userState.token) {
 			router.replace("/login");
 		}
-	}, [router, accessToken]);
+	}, [router, userState?.token]);
 
 	useEffect(() => {
 		check();
