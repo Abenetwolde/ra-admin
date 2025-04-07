@@ -90,23 +90,23 @@ function LoginForm() {
               {t("sys.login.mobileSignInFormTitle")}
             </Button>
           </Col>
-          <Col span={9} flex="1">
+          {/* <Col span={9} flex="1">
             <Button className="w-full !text-sm" onClick={() => setLoginState(LoginStateEnum.QR_CODE)}>
               {t("sys.login.qrSignInFormTitle")}
             </Button>
-          </Col>
+          </Col> */}
           <Col span={6} flex="1" onClick={() => setLoginState(LoginStateEnum.REGISTER)}>
             <Button className="w-full !text-sm">{t("sys.login.signUpFormTitle")}</Button>
           </Col>
         </Row>
 
-        <Divider className="!text-xs">{t("sys.login.otherSignIn")}</Divider>
+        {/* <Divider className="!text-xs">{t("sys.login.otherSignIn")}</Divider>
 
         <div className="flex cursor-pointer justify-around text-2xl">
           <AiFillGithub />
           <AiFillWechat />
           <AiFillGoogleCircle />
-        </div>
+        </div> */}
       </Form>
     </>
   );

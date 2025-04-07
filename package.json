@@ -3,7 +3,6 @@
 	"private": true,
 	"version": "0.0.0",
 	"type": "module",
-
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc && vite build",
@@ -39,7 +38,7 @@
 		"antd": "^5.9.3",
 		"apexcharts": "^3.43.0",
 		"autosuggest-highlight": "^3.3.4",
-		"axios": "^1.5.1",
+		"axios": "^1.8.4",
 		"classnames": "^2.3.2",
 		"clsx": "^2.1.1",
 		"color": "^4.2.3",

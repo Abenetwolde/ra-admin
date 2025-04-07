@@ -43,7 +43,7 @@ export default function PermissionPage() {
   };
 
   return (
-    <Card title="Form List" extra={<Button type="primary" onClick={onCreate}>New</Button>}>
+    <Card title="Form List" extra={<Button type="primary" onClick={onCreate}>New Form</Button>}>
       <FormList forms={forms} onDelete={onDelete} />
       <FormModal
         modalVisible={modalVisible}

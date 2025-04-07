@@ -1,8 +1,9 @@
-import { Form, Input, Button, Upload } from "antd";
+import { Form, Input, Button, Upload, Select } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import { useCreateRAOfficerMutation } from "@/api/services/raOfficerApi";
 import { toast } from "sonner";
+import { useGetOrganizationsQuery } from "@/api/services/organization";
 
 interface CreateRAOfficerFormProps {
   onCancel: () => void;
@@ -12,7 +13,7 @@ const CreateRAOfficerForm = ({ onCancel }: CreateRAOfficerFormProps) => {
   const [form] = Form.useForm();
   const [createRAOfficer, { isLoading }] = useCreateRAOfficerMutation();
   const [file, setFile] = useState<File | null>(null);
-
+  const { data: organizations, isLoading: isOrgLoading } = useGetOrganizationsQuery();
   const onFinish = async (values: any) => {
     const formData = new FormData();
     Object.keys(values).forEach((key) => {
@@ -27,8 +28,8 @@ const CreateRAOfficerForm = ({ onCancel }: CreateRAOfficerFormProps) => {
     try {
       await createRAOfficer(formData).unwrap();
       toast.success("RA Officer created successfully!", { id: toastId });
-      form.resetFields();
-      setFile(null);
+      // form.resetFields();
+      // setFile(null);
       onCancel(); // Close the modal on success
     } catch (error: any) {
       let errorMessage = "Failed to create RA Officer. Please try again.";
@@ -87,11 +88,19 @@ const CreateRAOfficerForm = ({ onCancel }: CreateRAOfficerFormProps) => {
         </Form.Item>
 
         <Form.Item
-          label="Organization ID"
+          label="Organization"
           name="org_id"
-          rules={[{ required: true, message: "Please enter the organization ID" }]}
+          rules={[{ required: true, message: "Please select an organization" }]}
         >
-          <Input placeholder="Enter organization ID" className="rounded-md" />
+          <Select
+            placeholder="Select an organization"
+            loading={isOrgLoading}
+            className="rounded-md"
+            dropdownClassName="rounded-md"
+            options={organizations?.map((org) => ({ label: org.org_name, value: org.org_id }))}
+          />
+         
+         
         </Form.Item>
 
         <Form.Item

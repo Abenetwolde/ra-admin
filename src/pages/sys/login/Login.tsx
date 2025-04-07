@@ -42,11 +42,11 @@ function Login() {
 					background: bg,
 				}}
 			>
-				<div className="text-3xl font-bold leading-normal lg:text-4xl xl:text-5xl">RA Admin</div>
+				{/* <div className="text-3xl font-bold leading-normal lg:text-4xl xl:text-5xl">RA Admin</div> */}
 				<img className="max-w-[480px] xl:max-w-[560px]" src={DashboardImg} alt="" />
-				<Typography.Text className="flex flex-row gap-[16px] text-2xl">
+				{/* <Typography.Text className="flex flex-row gap-[16px] text-2xl">
 					{t("sys.login.signInSecondTitle")}
-				</Typography.Text>
+				</Typography.Text> */}
 			</div>
 
 			<div className="m-auto flex !h-screen w-full max-w-[480px] flex-col justify-center px-[16px] lg:px-[64px]">
@@ -59,10 +59,10 @@ function Login() {
 				</LoginStateProvider>
 			</div>
 
-			<div className="absolute right-2 top-0 flex flex-row">
+			{/* <div className="absolute right-2 top-0 flex flex-row">
 				<LocalePicker />
 				<SettingButton />
-			</div>
+			</div> */}
 		</Layout>
 	);
 }
