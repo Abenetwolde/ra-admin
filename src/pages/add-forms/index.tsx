@@ -25,7 +25,7 @@ export default function PermissionPage() {
   const [createForm] = useCreateFormMutation();
 
   if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error loading forms</p>;
+  // if (error) return <p>Error loading forms</p>;
 
   const onCreate = () => {
     setFormValue({ name: "", org_id: 0, fields: [] });

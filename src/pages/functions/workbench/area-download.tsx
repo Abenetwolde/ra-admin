@@ -4,64 +4,93 @@ import { useState } from "react";
 import Card from "@/components/card";
 import Chart from "@/components/chart/chart";
 import useChart from "@/components/chart/useChart";
+import { themeVars } from "@/theme/theme.css";
 
-export default function AreaDownload() {
-	const [year, setYear] = useState("2023");
-	const series: Record<string, ApexAxisChartSeries> = {
-		"2022": [
-			{ name: "China", data: [10, 41, 35, 51, 49, 61, 69, 91, 148, 35, 51] },
-			{ name: "America", data: [10, 34, 13, 56, 77, 88, 99, 45, 13, 56, 77] },
-		],
+export default function AreaDownload({series,categories}:any) {
 
-		"2023": [
-			{ name: "China", data: [51, 35, 41, 10, 91, 69, 62, 148, 91, 35, 51] },
-			{ name: "America", data: [56, 13, 34, 10, 77, 99, 88, 45, 13, 56, 77] },
-		],
-	};
 	return (
 		<Card className="flex-col">
 			<header className="flex w-full justify-between self-start">
-				<Typography.Title level={5}>Area Installed</Typography.Title>
-				<Select
-					size="small"
-					defaultValue={year}
-					onChange={(value) => setYear(value)}
-					options={[
-						{ value: 2023, label: "2023" },
-						{ value: 2022, label: "2022" },
-					]}
-				/>
+				<Typography.Title level={5}> Certificate Requests OverTime </Typography.Title>
+				
 			</header>
 			<main className="w-full">
-				<ChartArea series={series[year]} />
+		  <ChartArea series={series} categories={categories} />
+
 			</main>
 		</Card>
 	);
 }
 
-function ChartArea({ series }: { series: ApexAxisChartSeries }) {
-	const chartOptions = useChart({
-		xaxis: {
-			type: "category",
-			categories: [
-				"Jan",
-				"Feb",
-				"Mar",
-				"Apr",
-				"May",
-				"Jun",
-				"Jut",
-				"Aug",
-				"Sep",
-				"Oct",
-				"Nov",
-				"Dec",
-			],
-		},
-		tooltip: {},
-	});
+function ChartArea({
+  series,
+  categories,
+}: {
+  series: ApexAxisChartSeries;
+  categories: string[];
+}) {
+  const chartOptions = useChart({
+    xaxis: {
+      type: "category",
+      categories,
+    },
+    tooltip: {},
+    chart: {
+      id: "requests-over-time",
+    },
+    colors: [ themeVars.colors.palette.warning.dark], 
+    responsive: [
+      {
+        breakpoint: 1700, // Adjust for large screens
+        options: {
+          chart: {
+            height: "400px", // Adjust height for larger screens
+          },
+          plotOptions: {
+            pie: {
+              donut: {
+                size: "80%", // Adjust donut size for large screens
+              },
+            },
+          },
+        },
+      },
+      {
+        breakpoint: 768, // For tablets and smaller screens
+        options: {
+          chart: {
+            height: "250px", // Adjust height for smaller screens
+          },
+          plotOptions: {
+            pie: {
+              donut: {
+                size: "70%", // Adjust donut size for smaller screens
+              },
+            },
+          },
+        },
+      },
+      {
+        breakpoint: 480, // For very small screens (like phones)
+        options: {
+          chart: {
+            height: "200px", // Adjust height for mobile screens
+          },
+          plotOptions: {
+            pie: {
+              donut: {
+                size: "60%", // Adjust donut size for very small screens
+              },
+            },
+          },
+        },
+      },
+    ],
+  });
 
-	return (
-		<Chart type="area" series={series} options={chartOptions} height={300} />
-	);
+  return (
+    <div className="w-full h-full">
+    <Chart type="bar" series={series} options={chartOptions} height={300} />
+    </div>
+  );
 }

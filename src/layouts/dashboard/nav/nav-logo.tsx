@@ -6,7 +6,7 @@ import { ThemeLayout } from "#/enum";
 import { HEADER_HEIGHT } from "../config";
 import logo from "@/assets/images/logo.png";
 import { useSelector } from "react-redux";
-
+import { jwtDecode } from 'jwt-decode';
 type Props = {
   collapsed: boolean;
   onToggle: () => void;
@@ -15,6 +15,11 @@ type Props = {
 export default function NavLogo({ collapsed, onToggle }: Props) {
   const { themeLayout } = useSettings();
 const stateUser=useSelector((state:any)=>state.user);
+ // Make sure to install this package
+
+// Assuming stateUser has a token property
+const decodedToken = stateUser?.token ? jwtDecode(stateUser.token) : null;
+const userRole = decodedToken?.role || 'RA Admin';
   return (
     <div
       style={{ height: `${HEADER_HEIGHT}px` }}
@@ -32,8 +37,10 @@ const stateUser=useSelector((state:any)=>state.user);
 />
 {themeLayout !== ThemeLayout.Mini && (
   <div className="flex flex-col items-start">
-    {/* Column layout for RA Admin and username */}
-    <span className="text-xl font-bold text-primary">RA Admin</span>
+ {/* Column layout for User Role and username */}
+ <span className="text-xl font-bold text-primary capitalize">
+      {userRole.replace(/_/g, ' ')} {/* Convert underscores to spaces if needed */}
+    </span>
     <p className="text-sm ">{stateUser?.username}</p>
   </div>
 )}

@@ -57,7 +57,7 @@ export default function UsersPage() {
   const [deleteUser, { isLoading: isDeleting }] = useDeleteUserMutation();
 
   if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error loading users</p>;
+  // if (error) return <p>Error loading users</p>;
 
   const onDelete = async (userId: number) => {
     const toastId = toast.loading("Deleting user...");

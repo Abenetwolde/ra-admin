@@ -52,7 +52,7 @@ const CreateRAOfficerForm = ({ onCancel }: CreateRAOfficerFormProps) => {
 
   return (
     <div className="p-6">
-      <h2 className="text-2xl font-bold mb-6 text-center">Create RA Officer</h2>
+      <h2 className="text-2xl font-bold mb-6 text-center">Create RA User</h2>
       <Form form={form} layout="vertical" onFinish={onFinish} className="grid grid-cols-2 gap-4">
         <Form.Item
           label="Username"
@@ -79,13 +79,20 @@ const CreateRAOfficerForm = ({ onCancel }: CreateRAOfficerFormProps) => {
         </Form.Item>
 
         <Form.Item
-          label="Role"
-          name="role"
-          initialValue="Org Officer"
-          rules={[{ required: true, message: "Please enter the role" }]}
-        >
-          <Input placeholder="Enter role" className="rounded-md" disabled />
-        </Form.Item>
+  label="Role"
+  name="role"
+  initialValue="Org Officer"
+  rules={[{ required: true, message: "Please select a role" }]}
+>
+  <Select
+    placeholder="Select role"
+    className="rounded-md"
+
+  >
+    <Select.Option value="Org Officer">Org Officer</Select.Option>
+    <Select.Option value="Org Auditor">Org Auditor</Select.Option>
+  </Select>
+</Form.Item>
 
         <Form.Item
           label="Organization"

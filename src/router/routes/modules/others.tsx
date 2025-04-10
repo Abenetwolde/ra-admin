@@ -5,7 +5,7 @@ import { CircleLoading } from "@/components/loading";
 import type { AppRouteObject } from "#/router";
 
 
-const CreateRAOfficerPage = lazy(() =>  import("@/pages/CreateRAOfficerPage"));
+const CreateUsersOfficerPage = lazy(() =>  import("@/pages/CreateRAOfficerPage"));
 const AddForm = lazy(() => import("@/pages/add-forms"));
 const  OrganizationPage =lazy(() => import("@/pages/organizations"));
 const  RequestPages =lazy(() => import("@/pages/request"));
@@ -55,16 +55,16 @@ const others: AppRouteObject[] = [
 		},
 	 },
 	 {
-		path: "ra-officers",
+		path: "ra-users",
 		element: (
 			<Wrapper>
-				<CreateRAOfficerPage/>
+				<CreateUsersOfficerPage/>
 			</Wrapper>
 		),
 		meta: {
-			label: "RA-Officers",
+			label: "RA-Users",
 			icon: <Iconify icon="grommet-icons:user-admin" size={20} />,
-			key: "/ra-officers",
+			key: "/ra-users",
 		},
 	 },
 	 {

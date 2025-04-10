@@ -27,18 +27,18 @@ const dashboard: AppRouteObject = {
 	children: [
 		{
 			index: true,
-			element: <Navigate to="workbench" replace />,
-		},
-		{
-			path: "workbench",
-			element: <HomePage />,
-			meta: { label: "sys.menu.workbench", key: "/dashboard/workbench" },
+			element: <Navigate to="analysis" replace />,
 		},
 		{
 			path: "analysis",
-			element: <Analysis />,
-			meta: { label: "sys.menu.analysis", key: "/dashboard/analysis" },
+			element: <HomePage />,
+			meta: { label: "Analysis", key: "/dashboard/analysis" },
 		},
+		// {
+		// 	path: "analysis",
+		// 	element: <Analysis />,
+		// 	meta: { label: "sys.menu.analysis", key: "/dashboard/analysis" },
+		// },
 	],
 };
 

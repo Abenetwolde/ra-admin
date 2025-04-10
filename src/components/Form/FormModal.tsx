@@ -16,7 +16,7 @@ interface Field {
 }
 
 interface ProfileDetails {
-  end_entity_profile_name: string;
+  end_entity_profile_name: any;
   available_cas: string[];
   available_certificate_profiles: string[];
   subject_distinguished_name_fields: string[];
@@ -186,9 +186,9 @@ const FormModal = ({
               <Select
                 loading={isCertificateProfilesLoading}
                 placeholder="Select profile"
-                options={certificateProfiles?.map((profile) => ({ 
-                  label: profile, 
-                  value: profile 
+                options={certificateProfiles?.end_entitie_profiles?.map((profile:any) => ({
+                  label: profile.name,  // Select the 'name' field for label and value
+                  value: profile.name   // Set 'value' to the 'name' field
                 }))}
                 onChange={(value) => {
                   console.log("Profile selected:", value);

@@ -5,7 +5,7 @@ import { RootState } from "../store";
 export const raofficerApi = createApi({
   reducerPath: "raofficerApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://tlwkc1rr-3000.uks1.devtunnels.ms/api", // Your API base URL
+    baseUrl: "http://172.20.83.24:3000/api", // Your API base URL
     prepareHeaders: (headers, { getState }) => {
       const state = getState() as RootState;
       const token = state.user.token;

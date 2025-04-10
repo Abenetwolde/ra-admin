@@ -4,7 +4,7 @@ import { useGetRAOfficersQuery } from "@/api/services/raOfficerApi";
 import CreateRAOfficerForm from "@/components/RAOfficerForm";
 
 
-const CreateRAOfficerPage = () => {
+const CreateRAUsersPage = () => {
   const { data: raOfficers, isLoading, error } = useGetRAOfficersQuery();
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -109,4 +109,4 @@ const CreateRAOfficerPage = () => {
   );
 };
 
-export default CreateRAOfficerPage;
+export default CreateRAUsersPage;
