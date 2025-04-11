@@ -86,8 +86,8 @@ function Workbench() {
         </Col>
         <Col span={24} md={8}>
           <CertificatesIssued
-            title="Pending Approvals"
-            count={data?.pendingApprovals || 0}
+            title="Certificates Issued"
+            count={data?.certificatesIssued || 0}
             loading={isLoading}
           />
         </Col>

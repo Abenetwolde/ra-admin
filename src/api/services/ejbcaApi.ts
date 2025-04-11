@@ -35,29 +35,7 @@ headers.set = (name: string, value: string) => {
         }
       }),
     }),
-    approveRequest: builder.mutation<void, { requestId: number }>({
-      query: ({ requestId }) => ({
-        url: `/ejbca/pkcs10enroll?request_id=${requestId}`,
-        method: 'POST',
-        headers: {
-          'request_id':requestId,
-        } ,// Adjust based on API requirements
-        body: { status: 'Approved' }, // Adjust based on API requirements
-
-      }),
-      invalidatesTags: ['Requests'], // Invalidate to refetch requests
-    }),
-    rejectRequest: builder.mutation<void, { requestId: number }>({
-      query: ({ requestId }) => ({
-        url: `/ejbca/pkcs10enroll?request_id=${requestId}`,
-        method: 'POST',
-        headers: {
-          'request_id':requestId,
-        } ,
-        body: { status: 'Rejected' }, // Adjust based on API requirements
-      }),
-      invalidatesTags: ['Requests'], // Invalidate to refetch requests
-    }),
+   
     getDashboardStats: builder.query<any, string>({
       query: (interval) => ({
         url: '/statistics/dashboard',
@@ -71,5 +49,4 @@ headers.set = (name: string, value: string) => {
   }),
 });
 
-export const { useGetCertificateProfilesQuery,  useLazyGetProfileDetailsQuery,useApproveRequestMutation,
-  useRejectRequestMutation,  useGetDashboardStatsQuery,  } = ejbcaApi;
+export const { useGetCertificateProfilesQuery,  useLazyGetProfileDetailsQuery,  useGetDashboardStatsQuery,  } = ejbcaApi;

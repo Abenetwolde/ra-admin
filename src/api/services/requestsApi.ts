@@ -30,7 +30,7 @@ interface UpdateRequestPayload extends Partial<CreateRequestPayload> {
 export const requestsApi = createApi({
   reducerPath: "requestsApi",
    baseQuery: fetchBaseQuery({
-     baseUrl: "https://tlwkc1rr-3000.uks1.devtunnels.ms/api", // Your API URL
+     baseUrl: "http://172.20.83.24:3000/api", // Your API URL
      prepareHeaders: (headers, { getState }) => {
        // Access the Redux state
        const state = getState() as RootState;
@@ -73,7 +73,63 @@ export const requestsApi = createApi({
       }),
       invalidatesTags: ["Requests"],
     }),
+    approveRequest: builder.mutation<void, { requestId: number }>({
+      query: ({ requestId }) => ({
+        url: `/ejbca/pkcs10enroll`,
+        method: 'POST',
+        body: { status: 'Approved' },
+        headers: {
+          request_id: requestId.toString(),
+        },
+      }),
+      async onQueryStarted({ requestId }, { dispatch, queryFulfilled }) {
+        const patchResult = dispatch(
+          requestsApi.util.updateQueryData('getRequests', undefined, (draft) => {
+            const request = draft.find((r: Request) => r.request_id === requestId); // Fix: Use request_id
+            if (request) {
+              request.status = 'Approved';
+            }
+          })
+        );
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
+      },
+      invalidatesTags: ['Requests'], // Add this to refetch requests after success
+    }),
+    
+    rejectRequest: builder.mutation<void, { requestId: number }>({
+      query: ({ requestId }) => ({
+        url: `/ejbca/pkcs10enroll?request_id=${requestId}`,
+        method: 'POST',
+        body: { status: 'Rejected' },
+        headers: {
+          request_id: requestId.toString(),
+        },
+      }),
+      async onQueryStarted({ requestId }, { dispatch, queryFulfilled }) {
+        const patchResult = dispatch(
+          requestsApi.util.updateQueryData('getRequests', undefined, (draft) => {
+            const request = draft.find((r: Request) => r.request_id === requestId); // Fix: Use request_id
+            if (request) {
+              request.status = 'Rejected';
+            }
+          })
+        );
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
+      },
+      invalidatesTags: ['Requests'], // Add this to refetch requests after success
+    }),
+    
+    
   }),
+  
 });
 
 export const {
@@ -81,4 +137,6 @@ export const {
   useCreateRequestMutation,
   useUpdateRequestMutation,
   useDeleteRequestMutation,
+  useApproveRequestMutation,
+  useRejectRequestMutation,
 } = requestsApi;

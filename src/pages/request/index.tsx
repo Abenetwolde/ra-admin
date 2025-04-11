@@ -2,7 +2,7 @@
 import { Button, Card, Drawer, Table } from 'antd';
 import { toast } from 'sonner';
 import { useGetRequestsQuery } from '@/api/services/requestsApi';
-import { useApproveRequestMutation, useRejectRequestMutation } from '@/api/services/ejbcaApi';
+import { useApproveRequestMutation, useRejectRequestMutation } from '@/api/services/requestsApi';
 import { IconButton, Iconify } from '@/components/icon';
 import { useState } from 'react';
 
@@ -42,11 +42,11 @@ export default function RequestsPage() {
       render: (status: string) => (
         <span
           className={
-            status === 'approved'
-              ? 'text-green-500'
-              : status === 'rejected'
-              ? 'text-red-500'
-              : 'text-yellow-500'
+            status === 'Approved'
+              ? 'text-success-darker bg-success-lighter p-1 rounded-md'
+              : status === 'Rejected'
+              ? '  text-error-darker bg-error-lighter p-1 rounded-md'
+              : 'text-warning-darker bg-warning-lighter p-1 rounded-md'
           }
         >
           {status.charAt(0).toUpperCase() + status.slice(1)}
@@ -214,7 +214,7 @@ export default function RequestsPage() {
                 danger
                 icon={<Iconify icon="mdi:close" />}
                 onClick={() => handleReject(selectedRequest.request_id)}
-                disabled={selectedRequest.status !== 'pending' || isApproving || isRejecting}
+                // disabled={selectedRequest.status !== 'pending' || isApproving || isRejecting}
                 loading={isRejecting}
               >
                 Reject
