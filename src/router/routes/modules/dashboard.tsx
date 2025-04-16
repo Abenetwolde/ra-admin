@@ -7,7 +7,7 @@ import { CircleLoading } from "@/components/loading";
 import type { AppRouteObject } from "#/router";
 
 const HomePage = lazy(() => import("@/pages/functions/workbench"));
-const Analysis = lazy(() => import("@/pages/functions/analysis"));
+
 
 const dashboard: AppRouteObject = {
 	order: 1,
