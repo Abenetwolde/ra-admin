@@ -1,23 +1,16 @@
 import { Drawer } from "antd";
 import { type CSSProperties, useState } from "react";
-
 import { IconButton, Iconify, SvgIcon } from "@/components/icon";
-import LocalePicker from "@/components/locale-picker";
-import Logo from "@/components/logo";
 import { useSettings } from "@/store/settingStore";
-
 import AccountDropdown from "../components/account-dropdown";
 import BreadCrumb from "../components/bread-crumb";
-import NoticeButton from "../components/notice";
-import SearchBar from "../components/search-bar";
-import SettingButton from "../components/setting-button";
-
 import { themeVars } from "@/theme/theme.css";
 import { cn } from "@/utils";
 import { rgbAlpha } from "@/utils/theme";
 import { ThemeLayout } from "#/enum";
 import { HEADER_HEIGHT, NAV_COLLAPSED_WIDTH, NAV_WIDTH } from "./config";
 import NavVertical from "./nav/nav-vertical";
+import Logo from "@/components/logo";
 
 export default function Header() {
 	const [drawerOpen, setDrawerOpen] = useState(false);

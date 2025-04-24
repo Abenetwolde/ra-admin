@@ -19,7 +19,7 @@ interface LoginResponse {
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://tlwkc1rr-3000.uks1.devtunnels.ms/api/",
+    baseUrl: "https://ngfd1vm4-3000.uks1.devtunnels.ms/api/",
   }),
   endpoints: (builder) => ({
     login: builder.mutation<LoginResponse, LoginRequest>({

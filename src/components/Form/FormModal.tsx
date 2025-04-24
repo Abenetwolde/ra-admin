@@ -18,6 +18,7 @@ interface Field {
 interface ProfileDetails {
   end_entity_profile_name: any;
   available_cas: string[];
+  request_type: "Instant" | "Manual"; // Added request_type,
   available_certificate_profiles: string[];
   subject_distinguished_name_fields: string[];
   subject_alternative_name_fields: string[];
@@ -58,7 +59,7 @@ const FormModal = ({
     field_type: "text",
     is_required: false
   });
-
+  const [isInstantRequest, setIsInstantRequest] = useState<boolean>(false); // Added state for Instant Request
   const [profileDetails, setProfileDetails] = useState<ProfileDetails | null>(null);
   const [loadingProfile, setLoadingProfile] = useState(false);
   const [selectedProfile, setSelectedProfile] = useState<string | undefined>();
@@ -114,7 +115,8 @@ const FormModal = ({
       const values = await form.validateFields();
       const newForm: FormData = { 
         ...values,
-        fields 
+        fields ,
+        request_type: isInstantRequest ? "Instant" : "Manual", // Include request_type in the payload
       };
       await createForm(newForm);
       setModalVisible(false);
@@ -177,7 +179,14 @@ const FormModal = ({
             >
               <Input placeholder="e.g., iconamoon:invoice" />
             </Form.Item>
-            
+            <Form.Item>
+              <Checkbox
+                checked={isInstantRequest}
+                onChange={(e) => setIsInstantRequest(e.target.checked)}
+              >
+                Instant Request
+              </Checkbox>
+            </Form.Item>
             <Form.Item 
               label="End Entity Profile Name" 
               name="end_entity_profile_name" 

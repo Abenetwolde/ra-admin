@@ -5,7 +5,7 @@ import { RootState } from '../store';
 export const ejbcaApi = createApi({
   reducerPath: 'ejbcaApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://172.20.83.24:3000/api", // Your API URL
+    baseUrl: "https://ngfd1vm4-3000.uks1.devtunnels.ms/api", // Your API URL
     prepareHeaders: (headers, { getState }) => {
       // Access the Redux state
       const state = getState() as RootState;
