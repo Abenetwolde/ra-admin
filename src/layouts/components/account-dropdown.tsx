@@ -10,7 +10,7 @@ import { useRouter } from "@/router/hooks";
 import { useUserActions, useUserInfo } from "@/store/userStore";
 import { useTheme } from "@/theme/hooks";
 import { clearUserToken } from "@/api/state/userStore";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 
@@ -49,12 +49,12 @@ export default function AccountDropdown() {
 	const menuStyle: React.CSSProperties = {
 		boxShadow: "none",
 	};
-
+const userState=useSelector((state:any)=>state.user);
 	const dropdownRender: DropdownProps["dropdownRender"] = (menu) => (
 		<div style={contentStyle}>
 			<div className="flex flex-col items-start p-4">
-				<div>Admin</div>
-				<div className="text-gray">admin@ra.com</div>
+			
+				<div className="text-gray">{userState?.username}</div>
 			</div>
 			<Divider style={{ margin: 0 }} />
 			{React.cloneElement(menu as React.ReactElement, { style: menuStyle })}
@@ -78,10 +78,7 @@ export default function AccountDropdown() {
 		// 	label: <NavLink to="/management/user/profile">{t("sys.menu.user.profile")}</NavLink>,
 		// 	key: "2",
 		// },
-		{
-			label: <NavLink to="/management/user/account">{t("sys.menu.user.account")}</NavLink>,
-			key: "3",
-		},
+
 		{ type: "divider" },
 		{
 			label: (
